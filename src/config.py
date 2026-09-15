@@ -1,3 +1,10 @@
+from enum import Enum, auto
+
+class GameState(Enum):
+    START = auto()
+    PLAYING = auto()
+    GAME_OVER = auto()
+
 # Dimensões da tela do jogo (em pixels)
 SCREEN_WIDTH: int = 800
 SCREEN_HEIGHT: int = 450
