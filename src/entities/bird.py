@@ -7,7 +7,9 @@ from src.config import (
     COLOR_BIRD,
     GRAVITY,
     JUMP_VELOCITY,
+    SCREEN_HEIGHT,
 )
+from src.entities.pipe import Pipe
 
 
 class Bird:
@@ -36,6 +38,26 @@ class Bird:
 
         # 3. Sincroniza o retângulo de renderização/colisão com a nova posição
         self.rect.y = int(self.y)
+
+    def check_collision(self, pipes: list[Pipe]) -> bool:
+        """Verifica se o pássaro colidiu com canos, chão ou teto"""
+        # Colisão com o chão ou com o teto
+        if self.rect.bottom >= SCREEN_HEIGHT or self.rect.top <= 0:
+            return True
+
+        # Colisão com qualquer um dos canos ativos
+        for pipe in pipes:
+            if self.rect.colliderect(pipe.top_rect) or self.rect.colliderect(pipe.bottom_rect):
+                return True
+
+        return False
+
+    def reset(self) -> None:
+        """Restaura o pássaro para as condições iniciais"""
+        self.x = BIRD_START_X
+        self.y = BIRD_START_Y
+        self.velocity_y = 0.0
+        self.rect.topleft = (int(self.x), int(self.y))
 
     def draw(self, surface: pygame.Surface) -> None:
         """Desenha o pássaro na superfície fornecida (placeholder geométrico)"""

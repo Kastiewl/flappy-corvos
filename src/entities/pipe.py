@@ -3,7 +3,7 @@ import pygame
 from src.config import (
     COLOR_PIPE,
     PIPE_GAP,
-    PIPE_MIN_HEIGHT, 
+    PIPE_MIN_HEIGHT,
     PIPE_SPEED,
     PIPE_WIDTH,
     SCREEN_HEIGHT,
