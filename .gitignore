@@ -13,6 +13,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Banco de dados local (criaremos nas etapas futuras)
+# Banco de dados local
 *.db
 *.sqlite3

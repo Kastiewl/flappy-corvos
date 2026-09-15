@@ -10,6 +10,7 @@ from src.config import (
     SCREEN_WIDTH, 
     WINDOW_TITLE,
 )
+from src.database import get_high_score, init_db, save_score
 from src.entities.bird import Bird
 from src.entities.pipe import Pipe
 
@@ -17,6 +18,7 @@ def main() -> None:
     # 1. Inicializa do Pygame e módulo de fontes
     pygame.init()
     pygame.font.init()
+    init_db()
 
     # 2. Configuração da Janela e relógio
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -36,6 +38,7 @@ def main() -> None:
     pipes: list[Pipe] = []
     spawn_timer: float = 0.0
     score: int = 0
+    high_score: int = get_high_score()
 
     # --- Ciclo de vida do Jogo (Game Loop) ---
     while running:
@@ -92,6 +95,8 @@ def main() -> None:
 
         # 5. Verificação de colisão (morte do pássaro)
             if bird.check_collision(pipes):
+                save_score(score)
+                high_score = get_high_score()
                 state = GameState.GAME_OVER
 
         # --- C. Renderização em camadas ---
@@ -122,12 +127,12 @@ def main() -> None:
             screen.blit(overlay, (0, 0))
 
             over_surf = font_title.render("FIM DE JOGO", True, (255, 75, 75))
-            final_score_surf = font_subtitle.render(f"Pontuação Final: {score}", True, (255, 255, 255))
+            final_score_surf = font_subtitle.render(f"Pontos: {score} | Recorde: {high_score}", True, (255, 255, 255))
             restart_surf = font_subtitle.render("Pressione ESPAÇO para Tentar Novamente", True, (200, 200, 200))
 
-            screen.blit(over_surf, over_surf.get_rect(center=(SCREEN_WIDTH //  2, 140)))
-            screen.blit(final_score_surf, final_score_surf.get_rect(center=(SCREEN_WIDTH // 2, 190)))
-            screen.blit(restart_surf, restart_surf.get_rect(center=(SCREEN_WIDTH // 2, 230)))
+            screen.blit(over_surf, over_surf.get_rect(center=(SCREEN_WIDTH //  2, 130)))
+            screen.blit(final_score_surf, final_score_surf.get_rect(center=(SCREEN_WIDTH // 2, 180)))
+            screen.blit(restart_surf, restart_surf.get_rect(center=(SCREEN_WIDTH // 2, 220)))
         
         pygame.display.flip()         # 4. Atualiza o display
 
