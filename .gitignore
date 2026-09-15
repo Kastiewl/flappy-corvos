@@ -1,0 +1,18 @@
+# Ambiente virtual (nunca deve ir para o Git)
+venv/
+env/
+
+# Caches automáticos do Python
+__pycache__/
+*.py[cod]
+
+# Configurações locais do editor
+.vscode/
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Banco de dados local (criaremos nas etapas futuras)
+*.db
+*.sqlite3
