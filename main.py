@@ -1,18 +1,22 @@
 import sys
 import pygame
 from src.config import COLOR_BACKGROUND, FPS, SCREEN_HEIGHT, SCREEN_WIDTH, WINDOW_TITLE
+from src.entities.bird import Bird
 
 def main() -> None:
-    # 1. Inicializa todos os módulos do Pygame
+    # 1. Inicializa do Pygame
     pygame.init()
 
-    # 2. Cria a superfície da janela e define o título
+    # 2. Configuração da Janela
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption(WINDOW_TITLE)
 
-    # 3. Cria o relógio para controle de FPS e cálculo de delta time
+    # 3. Relógio e controle de execução
     clock = pygame.time.Clock()
     running = True
+
+    # Inicia a entidade do pássaro antes de rodar o jogo
+    bird = Bird()
 
     # --- Ciclo de vida do Jogo (Game Loop) ---
     while running:
@@ -25,11 +29,17 @@ def main() -> None:
             if event.type == pygame.QUIT:
                 running = False
 
+            # Captura o clique da barra de espaço para pular
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    bird.jump()
+
         # --- B. Atualização da Lógica ---
-        # (Aqui entrará a física do pássaro e dos canos nos próximos passos)
+        bird.update(dt)
 
         # --- C. Renderização ---
         screen.fill(COLOR_BACKGROUND)
+        bird.draw(screen)
         pygame.display.flip()
 
     # Encerramento limpo dos recursos ao sair do loop
