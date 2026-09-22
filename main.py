@@ -15,19 +15,23 @@ from src.entities.bird import Bird
 from src.entities.pipe import Pipe
 
 def main() -> None:
+    # 1. Inicializa do Pygame e módulo de fontes
     pygame.init()
     pygame.font.init()
     init_db()
 
+    # 2. Configuração da Janela e relógio
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption(WINDOW_TITLE)
     clock = pygame.time.Clock()
     running = True
 
+    # 3. Fontes tipógraficas
     font_score = pygame.font.SysFont("Arial", 42, bold=True)
     font_title = pygame.font.SysFont("Arial", 36, bold=True)
     font_subtitle = pygame.font.SysFont("Arial", 20)
 
+    # 4. Estado do jogo e entidades
     state = GameState.START
     bird = Bird()
     pipes: list[Pipe] = []
@@ -57,6 +61,7 @@ def main() -> None:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            # Captura o clique da barra de espaço para pular
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     if state == GameState.START:
@@ -86,6 +91,7 @@ def main() -> None:
                 pipes.append(Pipe())
                 spawn_timer = 0.0
 
+            # 1. Canos
             for pipe in pipes:
                 pipe.update(dt)
                 if not pipe.passed and bird.x > pipe.x + PIPE_WIDTH:
@@ -133,8 +139,9 @@ def main() -> None:
             screen.blit(final_score_surf, final_score_surf.get_rect(center=(SCREEN_WIDTH // 2, 180)))
             screen.blit(restart_surf, restart_surf.get_rect(center=(SCREEN_WIDTH // 2, 220)))
 
-        pygame.display.flip()
+        pygame.display.flip()  # 4. Atualiza o display
 
+    # Encerramento limpo dos recursos ao sair do loop
     pygame.quit()
     sys.exit()
 
