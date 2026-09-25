@@ -6,7 +6,11 @@ Um remake estilizado em pixel art do clássico *Flappy Bird*, desenvolvido em **
 
 ## 🎮 Demonstração & Visuais
 
-> *Insira aqui uma prévia em GIF ou captura de tela do jogo rodando.*
+**Menu do Jogo**
+<img width="790" height="451" alt="image" src="https://github.com/user-attachments/assets/004d448b-aac4-4dab-8ae6-0029c0ba5f51" />
+
+**Jogo Rodando**
+<img width="794" height="446" alt="image" src="https://github.com/user-attachments/assets/e8e4145b-779b-4a36-aea5-ba0345defa13" />
 
 ---
 
