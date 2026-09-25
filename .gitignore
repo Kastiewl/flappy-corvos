@@ -16,3 +16,8 @@ Thumbs.db
 # Banco de dados local
 *.db
 *.sqlite3
+
+# PyInstaller / Executáveis
+build/
+dist/
+*.spec
